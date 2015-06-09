@@ -30,7 +30,7 @@ class paginaWeb(HTMLParser):
 class computacaoParser(HTMLParser):
 	resultados=[]
 	d=dict()
-	palavrasChave=['computacao','computação']
+	palavrasChave=['computacao','computação','Computação']
 	item=0
 	def handle_starttag(self, tag, attrs):
 		#@todo Otimização e limpeza desse código
