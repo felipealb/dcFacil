@@ -30,7 +30,7 @@ class paginaWeb(HTMLParser):
 class computacaoParser(HTMLParser):
 	resultados=[]
 	d=dict()
-	palavrasChave=['computacao','computação','Computação']
+	palavrasChave=['computacao','computação','Computação','prof']
 	item=0
 	def handle_starttag(self, tag, attrs):
 		#@todo Otimização e limpeza desse código
@@ -75,7 +75,15 @@ class controller:
 		return parser.d
 
 if __name__=="__main__":
-
+	print("Requisitando informações...")
 	c=controller()
 	dicionario=c.procuraNoticias(c.urlNoticiasUFC)
-	print(dicionario.keys(),dicionario.values())
+	# print(dicionario.keys(),dicionario.values())
+	saida=open("/home/ic/felipe.alb~/public_html/XML/news.xml",'w')
+	# saida=open("/home/flowp/repo/dcFacil/Servidor/tmp.xml",'w')
+	chaves=[]
+	for key in dicionario:
+		string='<noticia link='+dicionario[key][1]+'>'+dicionario[key][0]+'</noticia>'
+		print(string)
+		saida.write(string)
+	saida.close()
