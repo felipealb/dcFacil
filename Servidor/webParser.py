@@ -79,11 +79,14 @@ if __name__=="__main__":
 	c=controller()
 	dicionario=c.procuraNoticias(c.urlNoticiasUFC)
 	# print(dicionario.keys(),dicionario.values())
-	saida=open("/home/ic/felipe.alb~/public_html/XML/news.xml",'w')
-	# saida=open("/home/flowp/repo/dcFacil/Servidor/tmp.xml",'w')
+	# saida=open("/home/ic/felipe.alb/public_html/XML/news.xml",'w')
+	saida=open("/home/felipe/repo/dcFacil/Servidor/tmp.xml",'w')
+	saida.write('<?xml version="1.0" encoding="utf-8"?>\n')
+	saida.write('<news>\n')
 	chaves=[]
 	for key in dicionario:
-		string='<noticia link='+dicionario[key][1]+'>'+dicionario[key][0]+'</noticia>'
+		string='<noticia link="'+dicionario[key][1]+'">'+dicionario[key][0]+'</noticia>\n'
 		print(string)
 		saida.write(string)
+	saida.write('</news>\n')
 	saida.close()
