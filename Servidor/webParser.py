@@ -4,6 +4,7 @@ __author__ = 'flowp'
 import urllib.request
 from html.parser import HTMLParser
 
+
 #Entidades
 class paginaWeb(HTMLParser):
 
