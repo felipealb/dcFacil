@@ -64,7 +64,7 @@ class computacaoParser(HTMLParser):
 class ruParser(HTMLParser):
 	d=dict
 	show=False
-	contador=0
+	itens=[]
 	def handle_starttag(self, tag, attrs):
 		# print(tag)
 		if tag=='td': self.show=True
@@ -72,8 +72,8 @@ class ruParser(HTMLParser):
 
 	def handle_data(self, data):
 		if self.show:
-			print(data,self.contador)
-			self.contador+=1
+			# print(data.strip('-'))
+			self.itens.append(data.strip('-').strip())
 
 	def handle_endtag(self, tag):
 		# print(tag)
@@ -111,6 +111,20 @@ class controller:
 		pagina.getPagina()
 		parser=ruParser(strict=False)
 		parser.feed(pagina.getPaginaHTML())
+		# for i in parser.itens:
+		# 	print (i)
+		while '' in parser.itens:
+			parser.itens.remove('')
+		while 'Branco' in parser.itens:
+					parser.itens.remove('Branco')
+		# print(parser.itens)
+		cont=0
+		for i in parser.itens:
+			cont+=1
+			if cont==7:
+				print()
+				cont=0
+			print(i)#@todo parei aqui
 
 if __name__=="__main__":
 	print("Requisitando informações...")
