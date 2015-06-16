@@ -31,8 +31,9 @@ class paginaWeb(HTMLParser):
 class computacaoParser(HTMLParser):
 	resultados=[]
 	d=dict()
-	palavrasChave=['computacao','computação','Computação','prof']
+	palavrasChave=['computacao','computação','Computação','prof']#@todo remover 'prof'
 	item=0
+
 	def handle_starttag(self, tag, attrs):
 		#@todo Otimização e limpeza desse código
 		# print("encontrada tag",tag)
@@ -60,6 +61,24 @@ class computacaoParser(HTMLParser):
 	def handle_endtag(self, tag):
 		self.item+=1
 
+class ruParser(HTMLParser):
+	d=dict
+	show=False
+	contador=0
+	def handle_starttag(self, tag, attrs):
+		# print(tag)
+		if tag=='td': self.show=True
+		else: self.show=False
+
+	def handle_data(self, data):
+		if self.show:
+			print(data,self.contador)
+			self.contador+=1
+
+	def handle_endtag(self, tag):
+		# print(tag)
+		pass
+
 #Controlador
 class controller:
 	def __init__(self):
@@ -68,26 +87,34 @@ class controller:
 		self.urlNoticiasUFC="http://ufc.br/noticias"
 		self.urlCardapioRU="http://www.ufc.br/servidores/restaurante-universitario/2444-cardapio-do-restaurante-universitario"
 
-	def procuraNoticias(self,url):
-		pagina=paginaWeb(url)
+	def procuraNoticias(self):
+		pagina=paginaWeb(self.urlNoticiasUFC)
 		pagina.getPagina()
 		parser=computacaoParser(strict=False)
 		parser.feed(pagina.getPaginaHTML())
-		return parser.d
+		self.salvaResultadosNoticas(parser.d)
+
+	def salvaResultadosNoticas(self,dicionario):
+		# saida=open("/home/ic/felipe.alb/public_html/XML/news.xml",'w')
+		saida=open("/home/felipe/repo/dcFacil/Servidor/tmp.xml",'w')
+		saida.write('<?xml version="1.0" encoding="utf-8"?>\n')
+		saida.write('<news>\n')
+		for key in dicionario:
+			string='<noticia link="'+dicionario[key][1]+'">'+dicionario[key][0]+'</noticia>\n'
+			print(string)
+			saida.write(string)
+		saida.write('</news>\n')
+		saida.close()
+
+	def pegaCardapio(self):
+		pagina=paginaWeb(self.urlCardapioRU)
+		pagina.getPagina()
+		parser=ruParser(strict=False)
+		parser.feed(pagina.getPaginaHTML())
 
 if __name__=="__main__":
 	print("Requisitando informações...")
 	c=controller()
-	dicionario=c.procuraNoticias(c.urlNoticiasUFC)
-	# print(dicionario.keys(),dicionario.values())
-	# saida=open("/home/ic/felipe.alb/public_html/XML/news.xml",'w')
-	saida=open("/home/felipe/repo/dcFacil/Servidor/tmp.xml",'w')
-	saida.write('<?xml version="1.0" encoding="utf-8"?>\n')
-	saida.write('<news>\n')
-	chaves=[]
-	for key in dicionario:
-		string='<noticia link="'+dicionario[key][1]+'">'+dicionario[key][0]+'</noticia>\n'
-		print(string)
-		saida.write(string)
-	saida.write('</news>\n')
-	saida.close()
+	# c.procuraNoticias()
+	c.pegaCardapio()
+
