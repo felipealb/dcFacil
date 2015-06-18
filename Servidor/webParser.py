@@ -5,6 +5,7 @@ import urllib.request
 from html.parser import HTMLParser
 
 
+
 #Entidades
 class paginaWeb(HTMLParser):
 
@@ -62,22 +63,40 @@ class computacaoParser(HTMLParser):
 		self.item+=1
 
 class ruParser(HTMLParser):
-	d=dict
-	show=False
-	itens=[]
+	d=dict()
+	creating,startRead=False,False
+	item,itens=[],[]
+
+	def createObj(self,estado,conteudo=None):
+		if self.startRead:
+			if estado=="ini":
+				self.creating=True
+				self.item=[]
+			elif estado=="fim":
+				self.creating=False
+				self.itens.append(self.item)
+			else:
+				self.item.append(conteudo)
+
 	def handle_starttag(self, tag, attrs):
-		# print(tag)
-		if tag=='td': self.show=True
-		else: self.show=False
+		if tag=='td' and self.startRead:
+			# print('<')
+			self.createObj('ini')
 
 	def handle_data(self, data):
-		if self.show:
-			# print(data.strip('-'))
-			self.itens.append(data.strip('-').strip())
+		data=data.strip('-').strip()
+		if data=='ALMOÇO': self.startRead=True
+		elif data=='Atenção': self.startRead=False
+		if self.creating and self.startRead:
+			if data != '':
+				# print('\t',data)
+				self.createObj("cont",data)
 
 	def handle_endtag(self, tag):
-		# print(tag)
-		pass
+		if tag=='td' and self.startRead:
+			# print('>')
+			self.createObj('fim')
+
 
 #Controlador
 class controller:
@@ -118,13 +137,9 @@ class controller:
 		while 'Branco' in parser.itens:
 					parser.itens.remove('Branco')
 		# print(parser.itens)
-		cont=0
+
 		for i in parser.itens:
-			cont+=1
-			if cont==7:
-				print()
-				cont=0
-			print(i)#@todo parei aqui
+			print(i)
 
 if __name__=="__main__":
 	print("Requisitando informações...")
