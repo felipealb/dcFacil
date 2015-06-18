@@ -65,7 +65,7 @@ class computacaoParser(HTMLParser):
 class ruParser(HTMLParser):
 	d=dict()
 	creating,startRead=False,False
-	item,itens=[],[]
+	item,itens=['DESJEJUM'],[]
 
 	def createObj(self,estado,conteudo=None):
 		if self.startRead:
@@ -85,7 +85,7 @@ class ruParser(HTMLParser):
 
 	def handle_data(self, data):
 		data=data.strip('-').strip()
-		if data=='ALMOÇO': self.startRead=True
+		if data=='DESJEJUM': self.startRead=True
 		elif data=='Atenção': self.startRead=False
 		if self.creating and self.startRead:
 			if data != '':
@@ -126,6 +126,8 @@ class controller:
 		saida.close()
 
 	def pegaCardapio(self):
+		diaSemana=['S','T','Q','Q','S']
+		# diaSemana=['SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA']
 		pagina=paginaWeb(self.urlCardapioRU)
 		pagina.getPagina()
 		parser=ruParser(strict=False)
@@ -138,8 +140,27 @@ class controller:
 					parser.itens.remove('Branco')
 		# print(parser.itens)
 
-		for i in parser.itens:
-			print(i)
+		count=-1
+		dds=0
+		for item in parser.itens:
+			count+=1
+			if item[0] in ['DESJEJUM','ALMOÇO','JANTAR']:
+				print('\t',item[0])
+				continue
+			else:
+				print(item)
+			if count in [0,5,13]:
+				print('Refeição:',item[0])
+			elif count%6==0:
+				print('Tipo:',item[0])
+			else:
+				print(diaSemana[dds],opcao)
+				dds+=1
+				# for opcao,dia in list(zip(item,diaSemana)):
+				# 	print(dia+':',opcao)
+			if dds==5:dds=1
+			# print(item)
+
 
 if __name__=="__main__":
 	print("Requisitando informações...")
