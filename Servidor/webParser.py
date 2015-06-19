@@ -126,18 +126,12 @@ class controller:
 		saida.close()
 
 	def pegaCardapio(self):
-		diaSemana=['S','T','Q','Q','S']
-		# diaSemana=['SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA']
 		pagina=paginaWeb(self.urlCardapioRU)
 		pagina.getPagina()
 		parser=ruParser(strict=False)
 		parser.feed(pagina.getPaginaHTML())
-		# for i in parser.itens:
-		# 	print (i)
-		while '' in parser.itens:
-			parser.itens.remove('')
-		while 'Branco' in parser.itens:
-					parser.itens.remove('Branco')
+		# while '' in parser.itens:
+		# 	parser.itens.remove('')
 
 		café = [[],[],[],[],[],[]]
 		almoço = [[],[],[],[],[],[]]
