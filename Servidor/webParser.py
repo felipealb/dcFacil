@@ -115,7 +115,7 @@ class controller:
 
 	def salvaResultadosNoticas(self,dicionario):
 		# saida=open("/home/ic/felipe.alb/public_html/XML/news.xml",'w')
-		saida=open("/home/felipe/repo/dcFacil/Servidor/tmp.xml",'w')
+		saida=open("/home/flowp/repo/dcFacil/Servidor/tmp.xml",'w')
 		saida.write('<?xml version="1.0" encoding="utf-8"?>\n')
 		saida.write('<news>\n')
 		for key in dicionario:
@@ -138,28 +138,38 @@ class controller:
 			parser.itens.remove('')
 		while 'Branco' in parser.itens:
 					parser.itens.remove('Branco')
-		# print(parser.itens)
 
-		count=-1
-		dds=0
-		for item in parser.itens:
-			count+=1
-			if item[0] in ['DESJEJUM','ALMOÇO','JANTAR']:
-				print('\t',item[0])
-				continue
+		café = [[],[],[],[],[],[]]
+		almoço = [[],[],[],[],[],[]]
+		jantar = [[],[],[],[],[],[]]
+		cont=0
+		codRefeicao=0
+		for i in parser.itens:
+			#@todo otimizar isso aqui hehehe
+			if i[0] in ['ALMOÇO','JANTAR']: codRefeicao+=1
+			if codRefeicao==0:
+				café[cont].append(i)
+				cont+=1
+				if cont>5: cont=0
+
+			elif codRefeicao==1:
+				almoço[cont].append(i)
+				cont+=1
+				if cont>5: cont=0
+
 			else:
-				print(item)
-			if count in [0,5,13]:
-				print('Refeição:',item[0])
-			elif count%6==0:
-				print('Tipo:',item[0])
-			else:
-				print(diaSemana[dds],opcao)
-				dds+=1
-				# for opcao,dia in list(zip(item,diaSemana)):
-				# 	print(dia+':',opcao)
-			if dds==5:dds=1
-			# print(item)
+				jantar[cont].append(i)
+				cont+=1
+				if cont>5: cont=0
+
+		for i in café:
+			print(i)
+		print()
+		for i in almoço:
+			print(i)
+		print()
+		for i in jantar:
+			print(i)
 
 
 if __name__=="__main__":
