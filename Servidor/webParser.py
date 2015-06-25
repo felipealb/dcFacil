@@ -166,23 +166,70 @@ class controller:
 		out='<?xml version="1.0" encoding="utf-8"?>\n<cardapio>\n'
 		indice=0
 		dias_semana=['segunda','terca','quarta','quinta','sexta']
-		#[['DESJEJUM'], ['Bebidas'], ['Pães'], ['Frutas'], ['Especial']]
-		refeicao=cafe.pop().pop().pop()
-		print('--',refeicao)
-		bebida=cafe.pop().pop().pop()
-		paes=cafe.pop().pop()
-		frutas=cafe.pop().pop()
-		especial=cafe.pop().pop()
+		refeicao=cafe[0][0][0]
+
+		#Café
 		for dia in dias_semana:
 			indice+=1
-			out+='<'+dia+'>'
-			for i in range(len(cafe)):
-				print(cafe[i])
-				out+='<'+refeicao+'>\n'
-				out+='<'+bebida+'>'
-				out+='</'+refeicao+'>\n'
-			out+='</'+dia+'>\n'
-			print(out)
+			bebida=cafe[indice][1][0]
+			paes=cafe[indice][2][0]
+			frutas=cafe[indice][3][0]
+			especial=cafe[indice][4][0]
+
+			out+='<'+dia+'>\n'
+			out+='\t<'+refeicao+'>\n'
+			out+='\t\t<bebida> '+bebida+' </bebida>\n'
+			out+='\t\t<paes> '+paes+' </paes>\n'
+			out+='\t\t<frutas> '+frutas+' </frutas>\n'
+			out+='\t\t<especial> '+especial+' </especial>\n'
+			out+='\t</'+refeicao+'>\n'
+
+			#Almoço
+			refeicao=almoco[0][0][0]
+			principal=almoco[indice][1][0]
+			vegetariano=almoco[indice][2][0]
+			salada=almoco[indice][3][0]
+			guarnicao=almoco[indice][4][0]
+			acompanhamento=almoco[indice][5][0]
+			suco=almoco[indice][6][0]
+			sobremesa=almoco[indice][7][0]
+
+			out+='\t<'+refeicao+'>\n'
+			out+='\t\t<principal> '+principal+' </principal>\n'
+			out+='\t\t<vegetariano> '+vegetariano+' </vegetariano>\n'
+			out+='\t\t<salada> '+salada+' </salada>\n'
+			out+='\t\t<guarnicao> '+guarnicao+' </guarnicao>\n'
+			out+='\t\t<acompanhamento> '+acompanhamento+' </acompanhamento>\n'
+			out+='\t\t<suco> '+suco+' </suco>\n'
+			out+='\t\t<sobremesa> '+sobremesa+' </sobremesa>\n'
+			out+='\t</'+refeicao+'>\n'
+
+			#Janta
+			refeicao=janta[0][0][0]
+			principal=almoco[indice][1][0]
+			vegetariano=almoco[indice][2][0]
+			salada=almoco[indice][3][0]
+			guarnicao=almoco[indice][4][0]
+			acompanhamento=almoco[indice][5][0]
+			suco=almoco[indice][6][0]
+			sobremesa=almoco[indice][7][0]
+
+			out+='\t<'+refeicao+'>\n'
+			out+='\t\t<principal> '+principal+' </principal>\n'
+			out+='\t\t<vegetariano> '+vegetariano+' </vegetariano>\n'
+			out+='\t\t<salada> '+salada+' </salada>\n'
+			out+='\t\t<guarnicao> '+guarnicao+' </guarnicao>\n'
+			out+='\t\t<acompanhamento> '+acompanhamento+' </acompanhamento>\n'
+			out+='\t\t<suco> '+suco+' </suco>\n'
+			out+='\t\t<sobremesa> '+sobremesa+' </sobremesa>\n'
+			out+='\t</'+refeicao+'>\n'
+
+			out+='\t</'+dia+'>\n'
+		out+='</cardapio>'
+		print(out)
+		s=open('cardapioSAIDA.xml','w')
+		s.write(out)
+		s.close()
 
 
 if __name__ == "__main__":
