@@ -108,7 +108,7 @@ class controller:
 
 	def salvaResultadosNoticas(self, dicionario):
 		# saida=open("/home/ic/felipe.alb/public_html/XML/news.xml",'w')
-		saida = open("/home/felipe/repo/dcFacil/Servidor/news.xml", 'w')
+		saida = open("/home/felipe/repo/dcFacil/Servidor/XML/news.xml", 'w')
 		saida.write('<?xml version="1.0" encoding="utf-8"?>\n')
 		saida.write('<news>\n')
 		for key in dicionario:
@@ -216,7 +216,7 @@ class controller:
 			out+='</'+dia+'>\n'
 		out+='</cardapio>'
 		# s=open('/home/ic/felipe.alb/public_html/XML/cardapio.xml','w')
-		s=open('/home/felipe/repo/dcFacil/Servidor/cardapio.xml','w')
+		s=open('/home/felipe/repo/dcFacil/Servidor/XML/cardapio.xml','w')
 		s.write(out)
 		s.close()
 
