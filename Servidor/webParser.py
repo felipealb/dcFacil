@@ -92,7 +92,7 @@ class ruParser(HTMLParser):
 			self.createObj('fim')
 
 # Controlador
-class controller:
+class Controlador:
 	def __init__(self):
 		self.noticias = []
 		self.urls = []
@@ -100,6 +100,7 @@ class controller:
 		self.urlCardapioRU = "http://www.ufc.br/servidores/restaurante-universitario/2444-cardapio-do-restaurante-universitario"
 
 	def procuraNoticias(self):
+		print("Notícias...")
 		pagina = paginaWeb(self.urlNoticiasUFC)
 		pagina.getPagina()
 		parser = computacaoParser(strict=False)
@@ -120,6 +121,7 @@ class controller:
 		saida.close()
 
 	def pegaCardapio(self):
+		print("Cardápio...")
 		pagina = paginaWeb(self.urlCardapioRU)
 		pagina.getPagina()
 		parser = ruParser(strict=False)
@@ -223,6 +225,6 @@ class controller:
 
 if __name__ == "__main__":
 	print("Requisitando informações...")
-	c = controller()
+	c = Controlador()
 	c.procuraNoticias()
 	c.pegaCardapio()

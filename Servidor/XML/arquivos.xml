@@ -2,4 +2,8 @@
 <hashes>
 	<arquivo> arquivos.xml </arquivo>
 		<md5> d41d8cd98f00b204e9800998ecf8427e </md5>
+	<arquivo> news.xml </arquivo>
+		<md5> d0f5991b8b624846d5347c4468e1de7b </md5>
+	<arquivo> cardapio.xml </arquivo>
+		<md5> d891f3688b98fa1a411bfc346df855f2 </md5>
 </hashes>

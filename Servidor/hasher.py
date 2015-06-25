@@ -20,8 +20,9 @@ class Arqv:
 		self.calculaHash()
 		return self.hasher.hexdigest()
 
-class Main:
+class Principal:
 	def __init__(self):
+		print("Hasher...")
 		local='./XML/'
 		# local='/home/ic/felipe.alb/public_html/XML/'
 		lsNomes=os.listdir(local)
@@ -40,4 +41,4 @@ class Main:
 		xmlFile.close()
 
 if __name__=="__main__":
-	m=Main()
+	m=Principal()
