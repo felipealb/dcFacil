@@ -48,11 +48,9 @@ class computacaoParser(HTMLParser):
 
 	def handle_data(self, data):
 		# @todo Otimização e limpeza desse código
-		# print("encontrados dados",data)
 		dataLowerCase = str(data).lower()
 		for palavra in self.palavrasChave:
 			if palavra in dataLowerCase:
-				# print(dataLowerCase)
 				self.resultados.append(str(data).strip())
 				self.d[self.item][0] = str(data).strip()
 
@@ -77,7 +75,6 @@ class ruParser(HTMLParser):
 
 	def handle_starttag(self, tag, attrs):
 		if tag == 'td' and self.startRead:
-			# print('<')
 			self.createObj('ini')
 
 	def handle_data(self, data):
@@ -88,12 +85,10 @@ class ruParser(HTMLParser):
 			self.startRead = False
 		if self.creating and self.startRead:
 			if data != '':
-				# print('\t',data)
 				self.createObj("cont", data)
 
 	def handle_endtag(self, tag):
 		if tag == 'td' and self.startRead:
-			# print('>')
 			self.createObj('fim')
 
 # Controlador
@@ -113,12 +108,13 @@ class controller:
 
 	def salvaResultadosNoticas(self, dicionario):
 		# saida=open("/home/ic/felipe.alb/public_html/XML/news.xml",'w')
-		saida = open("/home/flowp/repo/dcFacil/Servidor/tmp.xml", 'w')
+		saida = open("/home/felipe/repo/dcFacil/Servidor/news.xml", 'w')
 		saida.write('<?xml version="1.0" encoding="utf-8"?>\n')
 		saida.write('<news>\n')
 		for key in dicionario:
-			string = '<noticia link="' + dicionario[key][1] + '">' + dicionario[key][0] + '</noticia>\n'
-			print(string)
+			string = '<noticia> ' + dicionario[key][0] + ' </noticia>\n'
+			string += '<link> ' + dicionario[key][1] + ' </link>\n'
+			# print(string)
 			saida.write(string)
 		saida.write('</news>\n')
 		saida.close()
@@ -152,29 +148,22 @@ class controller:
 				cont += 1
 				if cont > 5: cont = 0
 
-		# for i in café:
-		# 	print(i)
-		# print()
-		# for i in almoço:
-		# 	print(i)
-		# print()
-		# for i in jantar:
-		# 	print(i)
 		self.geraXML(café, almoço, jantar)
 
 	def geraXML(self, cafe, almoco, janta):
 		out='<?xml version="1.0" encoding="utf-8"?>\n<cardapio>\n'
 		indice=0
 		dias_semana=['segunda','terca','quarta','quinta','sexta']
-		refeicao=cafe[0][0][0]
 
 		#Café
 		for dia in dias_semana:
 			indice+=1
-			bebida=cafe[indice][1][0]
-			paes=cafe[indice][2][0]
-			frutas=cafe[indice][3][0]
-			especial=cafe[indice][4][0]
+
+			refeicao=cafe[0][0][0].lower()
+			bebida=', '.join(cafe[indice][1])
+			paes=', '.join(cafe[indice][2])
+			frutas=', '.join(cafe[indice][3])
+			especial=', '.join(cafe[indice][4])
 
 			out+='<'+dia+'>\n'
 			out+='\t<'+refeicao+'>\n'
@@ -185,14 +174,14 @@ class controller:
 			out+='\t</'+refeicao+'>\n'
 
 			#Almoço
-			refeicao=almoco[0][0][0]
-			principal=almoco[indice][1][0]
-			vegetariano=almoco[indice][2][0]
-			salada=almoco[indice][3][0]
-			guarnicao=almoco[indice][4][0]
-			acompanhamento=almoco[indice][5][0]
-			suco=almoco[indice][6][0]
-			sobremesa=almoco[indice][7][0]
+			refeicao=almoco[0][0][0].replace('Ç','C').lower()
+			principal=', '.join(almoco[indice][1])
+			vegetariano=', '.join(almoco[indice][2])
+			salada=', '.join(almoco[indice][3])
+			guarnicao=', '.join(almoco[indice][4])
+			acompanhamento=', '.join(almoco[indice][5])
+			suco=', '.join(almoco[indice][6])
+			sobremesa=', '.join(almoco[indice][7])
 
 			out+='\t<'+refeicao+'>\n'
 			out+='\t\t<principal> '+principal+' </principal>\n'
@@ -205,14 +194,14 @@ class controller:
 			out+='\t</'+refeicao+'>\n'
 
 			#Janta
-			refeicao=janta[0][0][0]
-			principal=almoco[indice][1][0]
-			vegetariano=almoco[indice][2][0]
-			salada=almoco[indice][3][0]
-			guarnicao=almoco[indice][4][0]
-			acompanhamento=almoco[indice][5][0]
-			suco=almoco[indice][6][0]
-			sobremesa=almoco[indice][7][0]
+			refeicao=janta[0][0][0].lower()
+			principal=', '.join(janta[indice][1])
+			vegetariano=', '.join(janta[indice][2])
+			salada=', '.join(janta[indice][3])
+			guarnicao=', '.join(janta[indice][4])
+			acompanhamento=', '.join(janta[indice][5])
+			suco=', '.join(janta[indice][6])
+			sobremesa=', '.join(janta[indice][7])
 
 			out+='\t<'+refeicao+'>\n'
 			out+='\t\t<principal> '+principal+' </principal>\n'
@@ -224,10 +213,10 @@ class controller:
 			out+='\t\t<sobremesa> '+sobremesa+' </sobremesa>\n'
 			out+='\t</'+refeicao+'>\n'
 
-			out+='\t</'+dia+'>\n'
+			out+='</'+dia+'>\n'
 		out+='</cardapio>'
-		print(out)
-		s=open('cardapioSAIDA.xml','w')
+		# s=open('/home/ic/felipe.alb/public_html/XML/cardapio.xml','w')
+		s=open('/home/felipe/repo/dcFacil/Servidor/cardapio.xml','w')
 		s.write(out)
 		s.close()
 
@@ -235,5 +224,5 @@ class controller:
 if __name__ == "__main__":
 	print("Requisitando informações...")
 	c = controller()
-	# c.procuraNoticias()
+	c.procuraNoticias()
 	c.pegaCardapio()

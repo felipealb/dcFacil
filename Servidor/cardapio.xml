@@ -1,26 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cardapio>
 <segunda>
-    <cafe>
-        lista de itens do café da manhã
-    </cafe>
-    <almoco>
-        lista de itens do almoco
-    </almoco>
-    <janta>
-        Lista de itens da janta
-    </janta>
+	<desjejum>
+		<bebida> Café, Leite Quente*, Leite Frio* </bebida>
+		<paes> Pão Carioca, Pão Sovado </paes>
+		<frutas> Maçã, Abacaxi </frutas>
+		<especial> Mingau* </especial>
+	</desjejum>
+	<almoco>
+		<principal> Bife ao Molho, Frango Assado </principal>
+		<vegetariano> Vegetais Agridoces </vegetariano>
+		<salada> Alface, Beterraba, Pepino e Manga </salada>
+		<guarnicao> Macarrão Espaguete </guarnicao>
+		<acompanhamento> Arroz, Branco, Arroz Integral, Feijão Carioca </acompanhamento>
+		<suco> Caju </suco>
+		<sobremesa> Mamão, Doce </sobremesa>
+	</almoco>
+	<jantar>
+		<principal> Estrogonoff de Carne*, Cubos de Frango ao Molho </principal>
+		<vegetariano> Panqueca Verde* </vegetariano>
+		<salada> Acelga, Cenoura, Tomate e Passas </salada>
+		<guarnicao> Macarrão Parafuso </guarnicao>
+		<acompanhamento> Arroz, Branco, Arroz Integral, Feijão de Corda </acompanhamento>
+		<suco> Goiaba </suco>
+		<sobremesa> Laranja, Doce </sobremesa>
+	</jantar>
 </segunda>
 <terca>
-    <cafe>
-        lista de itens do café da manhã
-    </cafe>
-    <almoco>
-        lista de itens do almoco
-    </almoco>
-    <janta>
-        Lista de itens da janta
-    </janta>
+	<desjejum>
+		<bebida> Café, Leite Quente*, Leite Frio* </bebida>
+		<paes> Pão Carioca, Pão de Forma </paes>
+		<frutas> Goiaba, Melão Japonês </frutas>
+		<especial> Presunto, Queijo </especial>
+	</desjejum>
+	<almoco>
+		<principal> Churrasco Misto, Filé de Frango Grelhado </principal>
+		<vegetariano> Omelete de Legumes* </vegetariano>
+		<salada> Purê Misto* (Abóbora + Batata) </salada>
+		<guarnicao> Farofa </guarnicao>
+		<acompanhamento> Baião, Arroz Integral, Feijão de Corda </acompanhamento>
+		<suco> Manga </suco>
+		<sobremesa> Banana, Doce </sobremesa>
+	</almoco>
+	<jantar>
+		<principal> Bisteca Suína na Chapa, Frango com Refogado </principal>
+		<vegetariano> Escondidinho de Soja </vegetariano>
+		<salada> Alface, Repolho Roxo, Cenoura e Milho </salada>
+		<guarnicao> Macarrão Espaguete </guarnicao>
+		<acompanhamento> Arroz à Grega, Arroz Integral, Feijão Carioca </acompanhamento>
+		<suco> Acerola </suco>
+		<sobremesa> Abacaxi, Doce </sobremesa>
+	</jantar>
 </terca>
-    <!-- E assim sucessivamente...-->
+<quarta>
+	<desjejum>
+		<bebida> Café, Leite Quente*, Leite Frio* </bebida>
+		<paes> Pão Carioca, Pão Sovado </paes>
+		<frutas> Banana, Melancia </frutas>
+		<especial> Cuscuz, Ovo </especial>
+	</desjejum>
+	<almoco>
+		<principal> Feijoada Brasileira, Frango ao Molho </principal>
+		<vegetariano> Feijoada Vegetariana </vegetariano>
+		<salada> Acelga, Pepino, Tomate e Melão </salada>
+		<guarnicao> Farofa </guarnicao>
+		<acompanhamento> Arroz Branco, Arroz Integral, Feijão Carioca </acompanhamento>
+		<suco> Acerola </suco>
+		<sobremesa> Laranja, Doce </sobremesa>
+	</almoco>
+	<jantar>
+		<principal> Bife ao Molho Mostarda*, Creme de Frango* </principal>
+		<vegetariano> Bife de Soja ao Molho </vegetariano>
+		<salada> Batata, Cenoura e Ervilha </salada>
+		<guarnicao> Cuscuz </guarnicao>
+		<acompanhamento> Arroz Branco, Arroz Integral, Feijão de Corda </acompanhamento>
+		<suco> Abacaxi </suco>
+		<sobremesa> Maçã, Doce </sobremesa>
+	</jantar>
+</quarta>
+<quinta>
+	<desjejum>
+		<bebida> Café, Leite Quente*, Leite Frio* </bebida>
+		<paes> Pão Carioca, Pão Sovado </paes>
+		<frutas> Laranja, Melão Espanhol </frutas>
+		<especial> Achocolatado*, Bolo </especial>
+	</desjejum>
+	<almoco>
+		<principal> Almôndegas ao M. Tomate, Filé de Frango ao Molho </principal>
+		<vegetariano> Estrogonoff Vegetariano* </vegetariano>
+		<salada> Alface, Beterraba, Cenoura e Abacaxi </salada>
+		<guarnicao> Pirão, Farofa </guarnicao>
+		<acompanhamento> Arroz com Cenoura, Arroz Integral, Feijão de Corda </acompanhamento>
+		<suco> Goiaba </suco>
+		<sobremesa> Abacaxi, Doce </sobremesa>
+	</almoco>
+	<jantar>
+		<principal> Carne Trinchada ao Molho, Frango Assado </principal>
+		<vegetariano> Lasanha de Berinjela </vegetariano>
+		<salada> Macaxeira Sautê </salada>
+		<guarnicao> Farofa </guarnicao>
+		<acompanhamento> Baião, Arroz Integral, Feijão Carioca </acompanhamento>
+		<suco> Manga </suco>
+		<sobremesa> Tangerina, Doce </sobremesa>
+	</jantar>
+</quinta>
+<sexta>
+	<desjejum>
+		<bebida> Café, Leite Quente*, Leite Frio* </bebida>
+		<paes> Pão Carioca, Pão Sovado </paes>
+		<frutas> Tangerina, Mamão </frutas>
+		<especial> Carne Moída </especial>
+	</desjejum>
+	<almoco>
+		<principal> Bife com Vegetais, Moqueca de Peixe* </principal>
+		<vegetariano> Fricassê de Soja </vegetariano>
+		<salada> Acelga, Repolho Roxo, Pepino e Manga </salada>
+		<guarnicao> Cuscuz </guarnicao>
+		<acompanhamento> Arroz Branco, Arroz Integral, Feijão Carioca </acompanhamento>
+		<suco> Abacaxi </suco>
+		<sobremesa> Melancia, Doce </sobremesa>
+	</almoco>
+	<jantar>
+		<principal> Torta de Calabresa*, Filé de Frango Grelhado </principal>
+		<vegetariano> Almôndegas de Soja </vegetariano>
+		<salada> Alface, Repolho Branco, Cenoura e Ervilha </salada>
+		<guarnicao> Macarrão Espaguete </guarnicao>
+		<acompanhamento> Arroz Branco, Arroz Integral, Feijão de Corda </acompanhamento>
+		<suco> Caju </suco>
+		<sobremesa> Melão Japonês, Doce </sobremesa>
+	</jantar>
+</sexta>
 </cardapio>
