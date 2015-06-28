@@ -8,10 +8,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:src="@drawable/logo"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="76dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="123dp"/>
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
