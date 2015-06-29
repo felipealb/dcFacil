@@ -2,6 +2,7 @@ package br.ufc.dc.sd4mp.dcfacil;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -110,6 +111,7 @@ public class MainActivity extends ActionBarActivity
     public void onResume(){
         super.onResume();
         new LeitorXML().execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
+
     }
 
     @Override
