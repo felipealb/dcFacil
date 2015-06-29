@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import Controle.LeitorXML;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -39,6 +41,7 @@ public class MainActivity extends ActionBarActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private LeitorXML leitor;
 
 
     private CharSequence mTitle;
@@ -101,6 +104,12 @@ public class MainActivity extends ActionBarActivity
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        new LeitorXML().execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
     }
 
     @Override
