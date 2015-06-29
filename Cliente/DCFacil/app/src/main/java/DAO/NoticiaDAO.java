@@ -17,16 +17,16 @@ import Modelo.Noticia;
 /**
  * Created by jonathan on 27/06/15.
  */
-public class noticiaDAO extends SQLiteOpenHelper {
+public class NoticiaDAO extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "MyNotes.db";
+    public static final String DATABASE_NAME = "dataBase.db";
     public static final int DATABASE_VERSION = 1;
 
-    public noticiaDAO(Context context) {
+    public NoticiaDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public noticiaDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public NoticiaDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 

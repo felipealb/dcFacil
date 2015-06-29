@@ -23,10 +23,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import DAO.NoticiaDAO;
+import Modelo.Noticia;
 
 /**
  * Created by jonathan on 28/06/15.
@@ -35,6 +42,11 @@ public class LeitorXML extends AsyncTask<String,String,String>{
 
     public String dadosXML;
     public String tipo;
+    Context context;
+
+    public LeitorXML(Context context){
+        this.context = context;
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -79,11 +91,31 @@ public class LeitorXML extends AsyncTask<String,String,String>{
         }
     }
 
-
     private void tratarNoticia(){
 
-        try {
+        String[] dados = dadosXML.split("\n");
+        Noticia noticia;
+        String aux;
+        NoticiaDAO dao = new NoticiaDAO(context);
 
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            for(int i=0;i<dados.length;i++){
+                noticia = new Noticia();
+                if(dados[i].contains("<noticia>")){
+                    aux = dados[i].replace("<noticia>","");
+                    aux = aux.replace("</noticia>", "");
+                    noticia.setTitulo(aux);
+                    i++;
+                    aux = dados[i].replace("<link>","");
+                    aux = aux.replace("</link>","");
+                    noticia.setLink(aux);
+                    noticia.setData(formatador.format(data));
+                    dao.create(noticia);
+                }
+            }
         }
         catch(Exception e){
             e.printStackTrace();
