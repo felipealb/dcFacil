@@ -110,7 +110,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onResume(){
         super.onResume();
-        new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
+       // new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
 
     }
 
