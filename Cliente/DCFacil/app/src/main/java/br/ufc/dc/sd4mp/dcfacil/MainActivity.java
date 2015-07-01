@@ -56,6 +56,7 @@ public class MainActivity extends ActionBarActivity
         mNavItems.add(new NavItem("Início", "Tela inicial", R.drawable.icone_inicial));
         mNavItems.add(new NavItem("Calendário", "Eventos do departamento", R.drawable.icone_calendario));
         mNavItems.add(new NavItem("Notícias", "Notícias do departmento", R.drawable.icone_noticias));
+        mNavItems.add(new NavItem("Estágios/Bolsas", "Estágios e bolsas", R.drawable.icone_estagio));
         mNavItems.add(new NavItem("Hoje no RU", "Cardápio do RU", R.drawable.icone_cardapio));
         mNavItems.add(new NavItem("Sobre", "Informações do aplicativo", R.drawable.icone_sobre));
 
@@ -111,6 +112,7 @@ public class MainActivity extends ActionBarActivity
     public void onResume(){
         super.onResume();
        // new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
+        new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/cardapio.xml");
 
     }
 
@@ -141,9 +143,12 @@ public class MainActivity extends ActionBarActivity
                 fragment = new noticia_Fragment();
                 break;
             case(3):
-                fragment = new cardapio_Fragment();
+                fragment = new estagio_Fragment();
                 break;
             case(4):
+                fragment = new cardapio_Fragment();
+                break;
+            case(5):
                 fragment = new sobre_Fragment();
                 break;
         }

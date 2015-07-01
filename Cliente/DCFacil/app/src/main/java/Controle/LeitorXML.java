@@ -32,7 +32,9 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import DAO.CardapioDAO;
 import DAO.NoticiaDAO;
+import Modelo.Cardapio;
 import Modelo.Noticia;
 
 /**
@@ -57,6 +59,9 @@ public class LeitorXML extends AsyncTask<String,String,String>{
 
             if(link.contains("news.xml")){
                 this.tipo = "noticia";
+            }
+            else if(link.contains("cardapio.xml")){
+                this.tipo = "cardapio";
             }
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -88,6 +93,103 @@ public class LeitorXML extends AsyncTask<String,String,String>{
     public void tratarXML(){
         if(tipo.equals("noticia")){
             tratarNoticia();
+        }
+        else if(tipo.equals("cardapio")){
+            tratarCardapio();
+        }
+    }
+
+    private void tratarCardapio() {
+        String[] dados = dadosXML.split("\n");
+        Cardapio cardapio;
+        String aux;
+        CardapioDAO dao = new CardapioDAO(context);
+
+        try {
+            for(int i=0;i<dados.length;i++){
+                cardapio = new Cardapio();
+                if(dados[i].contains("<segunda>") || dados[i].contains("<terca>") || dados[i].contains("<quarta>") || dados[i].contains("<quinta>") || dados[i].contains("<sexta>")){
+                    aux = dados[i].replace("<","");
+                    aux = aux.replace(">","");
+                    cardapio.setDiaSemana(aux);
+                    while(!dados[i].contains("</jantar>")){
+                        if(dados[i].contains("<desjejum>")){
+                            i++;
+                            aux = dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i];
+                            aux = aux.replace("<bebida>","");
+                            aux = aux.replace("</bebida>","");
+                            aux = aux.replace("<paes>","");
+                            aux = aux.replace("</paes>","");
+                            aux = aux.replace("<frutas>","");
+                            aux = aux.replace("</frutas>","");
+                            aux = aux.replace("<especial>","");
+                            aux = aux.replace("</especial>","");
+                            cardapio.setCafe(aux);
+                        }
+                        if(dados[i].contains("<almoco>")){
+                            i++;
+                            aux = dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i];
+                            aux = aux.replace("<principal>","");
+                            aux = aux.replace("</principal>","");
+                            aux = aux.replace("<vegetariano>","");
+                            aux = aux.replace("</vegetariano>","");
+                            aux = aux.replace("<salada>","");
+                            aux = aux.replace("</salada>","");
+                            aux = aux.replace("<guarnicao>","");
+                            aux = aux.replace("</guarnicao>","");
+                            aux = aux.replace("<acompanhamento>","");
+                            aux = aux.replace("</acompanhamento>","");
+                            aux = aux.replace("<suco>","");
+                            aux = aux.replace("</suco>","");
+                            aux = aux.replace("<sobremesa>","");
+                            aux = aux.replace("</sobremesa>","");
+                            cardapio.setAlmoco(aux);
+                        }
+
+                        if(dados[i].contains("<jantar>")){
+                            i++;
+                            aux = dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i]; i++;
+                            aux = aux + dados[i];
+                            aux = aux.replace("<principal>","");
+                            aux = aux.replace("</principal>","");
+                            aux = aux.replace("<vegetariano>","");
+                            aux = aux.replace("</vegetariano>","");
+                            aux = aux.replace("<salada>","");
+                            aux = aux.replace("</salada>","");
+                            aux = aux.replace("<guarnicao>","");
+                            aux = aux.replace("</guarnicao>","");
+                            aux = aux.replace("<acompanhamento>","");
+                            aux = aux.replace("</acompanhamento>","");
+                            aux = aux.replace("<suco>","");
+                            aux = aux.replace("</suco>","");
+                            aux = aux.replace("<sobremesa>","");
+                            aux = aux.replace("</sobremesa>","");
+                            cardapio.setJanta(aux);
+                        }
+
+                        i++;
+                    }
+
+                    dao.create(cardapio);
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 

@@ -54,4 +54,9 @@ public class noticia_Fragment extends Fragment {
         return rootView;
     }
 
+    public void onClick(View view){
+
+
+    }
+
 }
