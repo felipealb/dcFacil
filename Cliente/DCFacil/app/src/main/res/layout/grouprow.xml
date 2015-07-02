@@ -7,4 +7,5 @@
         android:padding="10dp"
         android:textSelectHandleLeft="@string/hello_world"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@color/bgColor"/>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bgColor">#ff212121</color>
-    <color name="lightGrey">#ff434343</color>
-    <color name="txtColor">#ffffff</color>
+    <!--ff212121-->
+    <color name="bgColor">#ffd4d4d4</color>
+    <color name="lightGrey">#ffa6a6a6</color>
+    <color name="txtColor">#000000</color>
     <color name="transparent">#00000000</color>
 </resources>
     <!--FF134667-->

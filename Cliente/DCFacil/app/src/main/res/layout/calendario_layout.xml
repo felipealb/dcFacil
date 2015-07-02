@@ -4,6 +4,7 @@
     android:theme="@style/TemaDark">
 
     <TextView
+        android:background="@color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -14,6 +15,7 @@
         />
 
     <CalendarView
+        android:background="@color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/calendarView"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/black"
+    android:background="@color/bgColor"
     android:clickable="true"
     android:orientation="vertical"
     android:paddingLeft="40dp"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="@string/hello_world"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/txtColor"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -27,7 +27,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white" />
+        android:background="@color/bgColor" />
 
 </LinearLayout>
 
