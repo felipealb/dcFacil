@@ -21,5 +21,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignWithParentIfMissing="false" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

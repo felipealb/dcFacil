@@ -2,6 +2,8 @@ package br.ufc.dc.sd4mp.dcfacil;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -24,17 +26,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
+
+import Controle.LeitorXML;
+import DAO.CardapioDAO;
+import DAO.NoticiaDAO;
+import Modelo.Noticia;
 
 
 public class MainActivity extends ActionBarActivity
@@ -48,6 +47,7 @@ public class MainActivity extends ActionBarActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private LeitorXML leitor;
 
 
     private CharSequence mTitle;
@@ -61,6 +61,7 @@ public class MainActivity extends ActionBarActivity
         mNavItems.add(new NavItem("Início", "Tela inicial", R.drawable.icone_inicial));
         mNavItems.add(new NavItem("Calendário", "Eventos do departamento", R.drawable.icone_calendario));
         mNavItems.add(new NavItem("Notícias", "Notícias do departmento", R.drawable.icone_noticias));
+        mNavItems.add(new NavItem("Estágios/Bolsas", "Estágios e bolsas", R.drawable.icone_estagio));
         mNavItems.add(new NavItem("Hoje no RU", "Cardápio do RU", R.drawable.icone_cardapio));
         mNavItems.add(new NavItem("Sobre", "Informações do aplicativo", R.drawable.icone_sobre));
 
@@ -86,12 +87,6 @@ public class MainActivity extends ActionBarActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        try {
-            getXML();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void setupDrawer(){
@@ -115,6 +110,24 @@ public class MainActivity extends ActionBarActivity
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if(verificaConexao()) {
+            NoticiaDAO daoNoticia = new NoticiaDAO(this);
+            daoNoticia.deletarTudo();
+            new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
+            CardapioDAO daoCardapio = new CardapioDAO(this);
+            daoCardapio.deletarTudo();
+            new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/cardapio.xml");
+        }
+        else{
+            Toast.makeText(this,"Sem Conexão!",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -145,9 +158,12 @@ public class MainActivity extends ActionBarActivity
                 fragment = new noticia_Fragment();
                 break;
             case(3):
-                fragment = new cardapio_Fragment();
+                fragment = new estagio_Fragment();
                 break;
             case(4):
+                fragment = new cardapio_Fragment();
+                break;
+            case(5):
                 fragment = new sobre_Fragment();
                 break;
         }
@@ -198,116 +214,16 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void getXML() throws IOException {
-        URL url = null;
-        try {
-            url = new URL("http://lia.ufc.br/~felipe.alb/XML/arquivos.xml");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+    public  boolean verificaConexao() {
+        boolean conectado;
+        ConnectivityManager conectivtyManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conectivtyManager.getActiveNetworkInfo() != null
+                && conectivtyManager.getActiveNetworkInfo().isAvailable()
+                && conectivtyManager.getActiveNetworkInfo().isConnected()) {
+            conectado = true;
+        } else {
+            conectado = false;
         }
-
-//create the new connection
-
-        HttpURLConnection urlConnection = null;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//set up some things on the connection
-
-        try {
-            urlConnection.setRequestMethod("GET");
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        }
-
-        urlConnection.setDoOutput(true);
-
-//and connect!
-
-        try {
-            urlConnection.connect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//set the path where we want to save the file
-
-//in this case, going to save it on the root directory of the
-
-//sd card.
-
-        File SDCardRoot = new File("/sdcard/" + "dcfacil/");
-
-//create a new file, specifying the path, and the filename
-
-//which we want to save the file as.
-
-        File file = new File(SDCardRoot, "superxml.xml");
-
-//this will be used to write the downloaded data into the file we created
-
-        FileOutputStream fileOutput = null;
-        try {
-            fileOutput = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-//this will be used in reading the data from the internet
-
-        InputStream inputStream = null;
-        try {
-            inputStream = urlConnection.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//this is the total size of the file
-
-        int totalSize = urlConnection.getContentLength();
-
-//variable to store total downloaded bytes
-
-        int downloadedSize = 0;
-
-//create a buffer...
-
-        byte[] buffer = new byte[1024];
-
-        int bufferLength = 0; //used to store a temporary size of the buffer
-
-//now, read through the input buffer and write the contents to the file
-
-        while ((bufferLength = inputStream.read(buffer)) > 0)
-
-        {
-
-//add the data in the buffer to the file in the file output stream (the file on the sd card
-
-            fileOutput.write(buffer, 0, bufferLength);
-
-//add up the size so we know how much is downloaded
-
-            downloadedSize += bufferLength;
-
-            int progress = (int) (downloadedSize * 100 / totalSize);
-
-//this is where you would do something to report the prgress, like this maybe
-
-//updateProgress(downloadedSize, totalSize);
-
-        }
-
-//close the output stream when done
-
-        try {
-            fileOutput.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return conectado;
     }
-
 }

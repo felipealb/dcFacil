@@ -4,6 +4,7 @@
     android:theme="@style/TemaDark">
 
     <TextView
+        android:background="@color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -12,4 +13,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         />
+
+    <CalendarView
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarView"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

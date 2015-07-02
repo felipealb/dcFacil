@@ -17,16 +17,16 @@ import Modelo.Noticia;
 /**
  * Created by jonathan on 27/06/15.
  */
-public class noticiaDAO extends SQLiteOpenHelper {
+public class NoticiaDAO extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "MyNotes.db";
+    public static final String DATABASE_NAME = "dataBase.db";
     public static final int DATABASE_VERSION = 1;
 
-    public noticiaDAO(Context context) {
+    public NoticiaDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public noticiaDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public NoticiaDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -45,6 +45,11 @@ public class noticiaDAO extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i2) {
         db.execSQL("drop table if exists noticia");
         onCreate(db);
+    }
+
+    public void deletarTudo(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("DELETE FROM noticia");
     }
 
     public void create(Noticia noticia) {
@@ -68,6 +73,21 @@ public class noticiaDAO extends SQLiteOpenHelper {
         Cursor result = db.rawQuery("select * from noticia where id = ?", new String[] { Integer.toString(id) });
         Noticia noticia = null;
         if (result != null && result.getCount() > 0) {
+            noticia = new Noticia();
+            noticia.setId(result.getInt(0));
+            noticia.setTitulo(result.getString(1));
+            noticia.setLink(result.getString(2));
+            noticia.setData(result.getString(3));
+        }
+        return noticia;
+    }
+
+    public Noticia procurarPorTitulo(String titulo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("select * from noticia where titulo = ?", new String[] { titulo });
+        Noticia noticia = null;
+        if (result != null && result.getCount() > 0) {
+            result.moveToNext();
             noticia = new Noticia();
             noticia.setId(result.getInt(0));
             noticia.setTitulo(result.getString(1));
