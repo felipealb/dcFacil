@@ -2,6 +2,7 @@ package br.ufc.dc.sd4mp.dcfacil;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
@@ -25,10 +26,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Controle.LeitorXML;
+import DAO.CardapioDAO;
+import DAO.NoticiaDAO;
+import Modelo.Noticia;
 
 
 public class MainActivity extends ActionBarActivity
@@ -111,8 +116,18 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onResume(){
         super.onResume();
-       // new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
-        new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/cardapio.xml");
+
+        if(verificaConexao()) {
+            NoticiaDAO daoNoticia = new NoticiaDAO(this);
+            daoNoticia.deletarTudo();
+            new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/news.xml");
+            CardapioDAO daoCardapio = new CardapioDAO(this);
+            daoCardapio.deletarTudo();
+            new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/cardapio.xml");
+        }
+        else{
+            Toast.makeText(this,"Sem Conexão!",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -199,4 +214,16 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public  boolean verificaConexao() {
+        boolean conectado;
+        ConnectivityManager conectivtyManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conectivtyManager.getActiveNetworkInfo() != null
+                && conectivtyManager.getActiveNetworkInfo().isAvailable()
+                && conectivtyManager.getActiveNetworkInfo().isConnected()) {
+            conectado = true;
+        } else {
+            conectado = false;
+        }
+        return conectado;
+    }
 }

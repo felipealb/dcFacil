@@ -91,6 +91,11 @@ public class CardapioDAO extends SQLiteOpenHelper {
         db.delete("cardapio", " id = ? ", new String[] { Integer.toString(id) });
     }
 
+    public void deletarTudo(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("DELETE FROM cardapio");
+    }
+
     public List<Cardapio> list() {
         List<Cardapio> lista = null;
         SQLiteDatabase db = this.getReadableDatabase();

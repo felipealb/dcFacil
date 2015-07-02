@@ -13,10 +13,16 @@
 
     <string name="action_settings">Settings</string>
 
-    <string-array name="sports_array">
-        <item>Divulgado índice de participação de professores e estudantes na avaliação institucional da UFC </item>
-        <item>Missa de sétimo dia do Prof. Marcus Aurélio Rabelo Lima Verde será hoje (24), às 19h </item>
+    <string-array name="dias_semana">
+        <item>Segunda</item>
+        <item>Terça</item>
+        <item>Quarta</item>
+        <item>Quinta</item>
+        <item>Sexta</item>
 
     </string-array>
+    <string name="title_activity_cardapio_opcoes">CardapioOpcoes</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
