@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bgColor">#ff134667</color>
+    <color name="bgColor">#ff212121</color>
+    <color name="lightGrey">#ff434343</color>
 </resources>
+    <!--FF134667-->
