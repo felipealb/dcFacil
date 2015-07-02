@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--ff212121-->
-    <color name="bgColor">#ffd4d4d4</color>
-    <color name="lightGrey">#ffa6a6a6</color>
+
+    <color name="bgColor">#ffd4d4d4</color><!--ff212121     ffd4d4d4-->
+    <color name="lightGrey">#ffa6a6a6</color><!--ffa6a6a6-->
     <color name="txtColor">#000000</color>
     <color name="transparent">#00000000</color>
 </resources>
