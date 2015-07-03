@@ -58,7 +58,7 @@ public class calendario_Fragment extends Fragment {
 
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
 
-                Toast.makeText(getActivity(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), day + "/" + (month+1) + "/" + year, Toast.LENGTH_LONG).show();
 
             }
 
