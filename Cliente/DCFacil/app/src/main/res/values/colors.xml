@@ -5,5 +5,9 @@
     <color name="lightGrey">#ffa6a6a6</color><!--ffa6a6a6-->
     <color name="txtColor">#000000</color>
     <color name="transparent">#00000000</color>
+
+    <item name="grey" type="color">#555555</item>
+    <item name="green" type="color">#4499CC00</item>
+    <item name="darkgreen" type="color">#FF669900</item>
 </resources>
     <!--FF134667-->
