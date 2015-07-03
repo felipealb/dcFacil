@@ -33,8 +33,10 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import DAO.CardapioDAO;
+import DAO.EstagioDAO;
 import DAO.NoticiaDAO;
 import Modelo.Cardapio;
+import Modelo.Estagio;
 import Modelo.Noticia;
 
 /**
@@ -62,6 +64,9 @@ public class LeitorXML extends AsyncTask<String,String,String>{
             }
             else if(link.contains("cardapio.xml")){
                 this.tipo = "cardapio";
+            }
+            else if(link.contains("estagio.xml")){
+                this.tipo = "estagio";
             }
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -97,7 +102,42 @@ public class LeitorXML extends AsyncTask<String,String,String>{
         else if(tipo.equals("cardapio")){
             tratarCardapio();
         }
+        else if(tipo.equals("estagio")){
+            tratarEstagio();
+        }
     }
+
+    private void tratarEstagio() {
+        String[] dados = dadosXML.split("\n");
+        Estagio estagio;
+        String aux;
+        EstagioDAO dao = new EstagioDAO(context);
+
+        try {
+            for(int i=0;i<dados.length;i++){
+                estagio = new Estagio();
+                if(dados[i].contains("<item>")){
+                    i++;
+                    aux = dados[i].replace("<local>","");
+                    aux = aux.replace("</local>", "");
+                    estagio.setLocal(aux);
+                    i++;
+                    aux = dados[i].replace("<descricao>","");
+                    aux = aux.replace("</descricao>", "");
+                    estagio.setDescricao(aux);
+                    i++;
+                    aux = dados[i].replace("<contato>","");
+                    aux = aux.replace("</contato>","");
+                    estagio.setDescricao(aux);
+                    dao.create(estagio);
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     private void tratarCardapio() {
         String[] dados = dadosXML.split("\n");

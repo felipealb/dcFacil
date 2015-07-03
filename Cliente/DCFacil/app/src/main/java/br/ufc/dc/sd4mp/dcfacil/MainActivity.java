@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import Controle.LeitorXML;
 import DAO.CardapioDAO;
+import DAO.EstagioDAO;
 import DAO.NoticiaDAO;
 import Modelo.Noticia;
 
@@ -124,6 +125,9 @@ public class MainActivity extends ActionBarActivity
             CardapioDAO daoCardapio = new CardapioDAO(this);
             daoCardapio.deletarTudo();
             new LeitorXML(this).execute("http://www.lia.ufc.br/~felipe.alb/XML/cardapio.xml");
+            //EstagioDAO daoEstagio = new EstagioDAO(this);
+            //daoEstagio.deletarTudo();
+            //new LeitorXML(this).execute("http://lia.ufc.br/~felipe.alb/XML/estagio.xml");
         }
         else{
             Toast.makeText(this,"Sem Conexão!",Toast.LENGTH_SHORT).show();
