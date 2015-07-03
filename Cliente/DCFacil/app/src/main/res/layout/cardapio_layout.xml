@@ -12,7 +12,8 @@
         android:textAlignment="center"
         android:id="@+id/title"
         android:background="@color/blue"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:gravity="center"/>
 
     <ListView
         android:layout_width="wrap_content"

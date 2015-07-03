@@ -3,16 +3,16 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:theme="@style/TemaDark">
 
-    
-
     <TextView
-        android:background="@color/bgColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ESTÁGIO"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Estágios"
+        android:textColor="@color/branco"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:id="@+id/title"
+        android:background="@color/blue"
+        android:padding="10dp"
+        android:gravity="center"/>
+
 </RelativeLayout>
