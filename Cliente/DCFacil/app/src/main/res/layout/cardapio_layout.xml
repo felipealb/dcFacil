@@ -21,5 +21,9 @@
         android:id="@+id/listView2"
         android:layout_centerHorizontal="true"
         android:entries="@array/dias_semana"
-        android:layout_below="@id/title"/>
+        android:layout_below="@id/title"
+        android:dividerHeight="3dp"
+        android:paddingTop="5dp"
+        android:divider="@color/blue"
+        />
 </RelativeLayout>

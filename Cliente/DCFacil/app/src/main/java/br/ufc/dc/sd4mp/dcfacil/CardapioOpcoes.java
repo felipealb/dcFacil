@@ -32,9 +32,10 @@ public class CardapioOpcoes extends ExpandableListActivity implements Expandable
         //setContentView(R.layout.activity_cardapio_opcoes);
 
         ExpandableListView expandbleLis = getExpandableListView();
-        expandbleLis.setDividerHeight(2);
+        expandbleLis.setDividerHeight(3);
         expandbleLis.setGroupIndicator(null);
         expandbleLis.setClickable(true);
+        
 
         setGroupData();
         setChildGroupData();
